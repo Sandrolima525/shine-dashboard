@@ -38,7 +38,7 @@ export function NovaOrdemDialog() {
   const [marca, setMarca] = useState("");
   const [modelo, setModelo] = useState("");
   const [cor, setCor] = useState("");
-  const [tipo, setTipo] = useState(TIPOS_LAVAGEM[0]);
+  const [tipo, setTipo] = useState<string>(TIPOS_LAVAGEM[0]!);
   const [valor, setValor] = useState("");
 
   const { data: clientes = [] } = useQuery({
@@ -75,7 +75,7 @@ export function NovaOrdemDialog() {
     setMarca("");
     setModelo("");
     setCor("");
-    setTipo(TIPOS_LAVAGEM[0]);
+    setTipo(TIPOS_LAVAGEM[0]!);
     setValor("");
   }
 
