@@ -14,6 +14,61 @@ export type Database = {
   }
   public: {
     Tables: {
+      agendamentos: {
+        Row: {
+          cliente_id: string
+          created_at: string
+          data_hora: string
+          id: string
+          servico_id: string
+          status: Database["public"]["Enums"]["status_agendamento"]
+          updated_at: string
+          veiculo_id: string | null
+        }
+        Insert: {
+          cliente_id: string
+          created_at?: string
+          data_hora: string
+          id?: string
+          servico_id: string
+          status?: Database["public"]["Enums"]["status_agendamento"]
+          updated_at?: string
+          veiculo_id?: string | null
+        }
+        Update: {
+          cliente_id?: string
+          created_at?: string
+          data_hora?: string
+          id?: string
+          servico_id?: string
+          status?: Database["public"]["Enums"]["status_agendamento"]
+          updated_at?: string
+          veiculo_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "agendamentos_cliente_id_fkey"
+            columns: ["cliente_id"]
+            isOneToOne: false
+            referencedRelation: "clientes"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "agendamentos_servico_id_fkey"
+            columns: ["servico_id"]
+            isOneToOne: false
+            referencedRelation: "servicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "agendamentos_veiculo_id_fkey"
+            columns: ["veiculo_id"]
+            isOneToOne: false
+            referencedRelation: "veiculos"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       clientes: {
         Row: {
           created_at: string
@@ -79,6 +134,33 @@ export type Database = {
           },
         ]
       }
+      servicos: {
+        Row: {
+          created_at: string
+          duracao_minutos: number
+          id: string
+          nome: string
+          preco: number
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          duracao_minutos?: number
+          id?: string
+          nome: string
+          preco?: number
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          duracao_minutos?: number
+          id?: string
+          nome?: string
+          preco?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
       veiculos: {
         Row: {
           cliente_id: string
@@ -128,6 +210,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
+      status_agendamento: "Pendente" | "Confirmado" | "Concluido"
       status_lavagem: "Na Fila" | "Lavando" | "Pronto" | "Entregue"
     }
     CompositeTypes: {
@@ -256,6 +339,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
+      status_agendamento: ["Pendente", "Confirmado", "Concluido"],
       status_lavagem: ["Na Fila", "Lavando", "Pronto", "Entregue"],
     },
   },
