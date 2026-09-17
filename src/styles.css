@@ -145,3 +145,28 @@
     color: var(--color-foreground);
   }
 }
+
+@layer components {
+  .bg-gradient-hero {
+    background: var(--gradient-hero);
+  }
+  .shadow-glow {
+    box-shadow: var(--surface-glow);
+  }
+  .status-fila {
+    background-color: color-mix(in oklab, var(--muted-foreground) 25%, transparent);
+    color: var(--foreground);
+  }
+  .status-lavando {
+    background-color: color-mix(in oklab, var(--primary) 25%, transparent);
+    color: var(--primary);
+  }
+  .status-pronto {
+    background-color: color-mix(in oklab, var(--chart-4) 25%, transparent);
+    color: var(--chart-4);
+  }
+  .status-entregue {
+    background-color: color-mix(in oklab, var(--muted) 60%, transparent);
+    color: var(--muted-foreground);
+  }
+}
