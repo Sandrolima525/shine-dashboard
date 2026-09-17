@@ -14,7 +14,112 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      clientes: {
+        Row: {
+          created_at: string
+          id: string
+          nome: string
+          telefone: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          nome: string
+          telefone?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          nome?: string
+          telefone?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      ordens_servico: {
+        Row: {
+          created_at: string
+          data: string
+          id: string
+          status: Database["public"]["Enums"]["status_lavagem"]
+          tipo_de_lavagem: string
+          updated_at: string
+          valor: number
+          veiculo_id: string
+        }
+        Insert: {
+          created_at?: string
+          data?: string
+          id?: string
+          status?: Database["public"]["Enums"]["status_lavagem"]
+          tipo_de_lavagem: string
+          updated_at?: string
+          valor?: number
+          veiculo_id: string
+        }
+        Update: {
+          created_at?: string
+          data?: string
+          id?: string
+          status?: Database["public"]["Enums"]["status_lavagem"]
+          tipo_de_lavagem?: string
+          updated_at?: string
+          valor?: number
+          veiculo_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ordens_servico_veiculo_id_fkey"
+            columns: ["veiculo_id"]
+            isOneToOne: false
+            referencedRelation: "veiculos"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      veiculos: {
+        Row: {
+          cliente_id: string
+          cor: string | null
+          created_at: string
+          id: string
+          marca: string | null
+          modelo: string | null
+          placa: string
+          updated_at: string
+        }
+        Insert: {
+          cliente_id: string
+          cor?: string | null
+          created_at?: string
+          id?: string
+          marca?: string | null
+          modelo?: string | null
+          placa: string
+          updated_at?: string
+        }
+        Update: {
+          cliente_id?: string
+          cor?: string | null
+          created_at?: string
+          id?: string
+          marca?: string | null
+          modelo?: string | null
+          placa?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "veiculos_cliente_id_fkey"
+            columns: ["cliente_id"]
+            isOneToOne: false
+            referencedRelation: "clientes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
@@ -23,7 +128,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      status_lavagem: "Na Fila" | "Lavando" | "Pronto" | "Entregue"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +255,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      status_lavagem: ["Na Fila", "Lavando", "Pronto", "Entregue"],
+    },
   },
 } as const
